@@ -123,16 +123,16 @@ glacier_properties['ela'] = {
 
 # Default colors for plots
 plot_colors = [
-    '#1f77b4', 
+    '#1f77b4',
     '#ff7f0e',
-    '#2ca02c', 
+    '#2ca02c',
     '#d62728',
-    '#9467bd', 
-    '#8c564b', 
-    '#e377c2', 
+    '#9467bd',
+    '#8c564b',
+    '#e377c2',
     '#7f7f7f',
-    '#bcbd22', 
-    '#17becf'  
+    '#bcbd22',
+    '#17becf'
 ]
 def run_selection_label(filename):
     """
@@ -264,10 +264,10 @@ app.layout = html.Div(
               Input('run_selection','value'),
               Input('param_selection','value')])
 def make_individual_figure(main_graph_hover, run_selection, param_selection):
-    
+
     if main_graph_hover is None:
         main_graph_hover = {'points': [{'text': df.text.values[0]}]}
-    
+
     # Get the properties of the selected parameter
     param_name = glacier_properties[param_selection]['name']
     param_units = glacier_properties[param_selection]['units']
@@ -292,7 +292,7 @@ def make_individual_figure(main_graph_hover, run_selection, param_selection):
 
         # Plot moving average for climate data
         if param_selection in ['temp','prcp','prcp_sol','ela']:
-            
+
             av = ds.rolling(time=10).mean()
 
             sel_av = getattr(av.sel(rgi_id=rid),param_selection) * param_multiplier
@@ -312,11 +312,11 @@ def make_individual_figure(main_graph_hover, run_selection, param_selection):
                 )
             )
             dash_style = 'dot'
-        
+
         else:
             dash_style = 'solid'
 
-        
+
         sel = getattr(ds.sel(rgi_id=rid),param_selection) * param_multiplier
         data.append(
             go.Scatter(
@@ -338,7 +338,7 @@ def make_individual_figure(main_graph_hover, run_selection, param_selection):
         plot_color += 1
         if plot_color == len(plot_colors):
             plot_color = 0
-        
+
     layout_graph = go.Layout(
         title=rid,
         xaxis=dict(title='Time (years)'),
@@ -350,7 +350,7 @@ def make_individual_figure(main_graph_hover, run_selection, param_selection):
             ),
             margin=go.Margin(l=60, r=0, t=60, b=30)
     )
-    
+
     figure = dict(data=data, layout=layout_graph)
     return figure
 
