@@ -12,8 +12,10 @@ import dash_html_components as html
 import plotly.graph_objs as go
 from server import server
 
-app = dash.Dash(name='dash_explore', sharing=True,
+app = dash.Dash(name='explore', sharing=True,
                 server=server, url_base_pathname='/apps/explore')
+
+app.title = 'GeoDataHack - Explore'
 
 app.css.append_css({'external_url': 'https://cdn.rawgit.com/plotly/dash-app-stylesheets/2d266c578d2a6e8850ebce48fdb52759b2aef506/stylesheet-oil-and-gas.css'})
 
@@ -422,4 +424,9 @@ def make_temp_figure(selected_lat, selected_map, selected_p, selected_t):
 
     figure = dict(data=data, layout=_layout)
     return figure
+
+
+# Main
+if __name__ == '__main__':
+    app.server.run(debug=True, threaded=True)
 
