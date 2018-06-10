@@ -17,8 +17,7 @@ import plotly.graph_objs as go
 from server import server
 
 
-app = dash.Dash(name='scenarios', sharing=True,
-                server=server, url_base_pathname='/apps/scenarios')
+app = dash.Dash(name='scenarios', server=server, url_base_pathname='/apps/scenarios')
 
 app.title = 'GeoDataHack - Scenarios'
 

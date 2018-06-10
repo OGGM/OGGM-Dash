@@ -12,8 +12,7 @@ import dash_html_components as html
 import plotly.graph_objs as go
 from server import server
 
-app = dash.Dash(name='explore', sharing=True,
-                server=server, url_base_pathname='/apps/explore')
+app = dash.Dash(name='explore', server=server, url_base_pathname='/apps/explore')
 
 app.title = 'GeoDataHack - Explore'
 

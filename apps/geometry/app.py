@@ -53,8 +53,7 @@ map_lon = 10.87
 map_lat = 46.85
 map_zoom = 10
 
-app = dash.Dash(name='geometry', sharing=True,
-                server=server, url_base_pathname='/apps/geometry')
+app = dash.Dash(name='geometry', server=server, url_base_pathname='/apps/geometry')
 
 app.title = 'GeoDataHack - Geometry'
 

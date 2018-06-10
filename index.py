@@ -3,7 +3,7 @@ import dash_html_components as html
 from server import server
 
 
-app = dash.Dash(name='index', sharing=True, server=server, url_base_pathname='/')
+app = dash.Dash(name='index', server=server, url_base_pathname='/')
 
 app.title = 'GeoDataHack - dashboards'
 
