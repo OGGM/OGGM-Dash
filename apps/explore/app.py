@@ -411,8 +411,3 @@ def make_temp_figure(selected_lat, selected_map, selected_p, selected_t):
     figure = dict(data=data, layout=_layout)
     return figure
 
-
-# Main
-if __name__ == '__main__':
-    app.server.run(debug=True, threaded=True)
-

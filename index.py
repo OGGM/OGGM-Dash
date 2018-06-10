@@ -63,7 +63,3 @@ app.layout = html.Div([
     }
 )
 
-# Main
-if __name__ == '__main__':
-    app.server.run(debug=True, threaded=True)
-

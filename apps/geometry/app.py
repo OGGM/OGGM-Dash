@@ -260,7 +260,3 @@ def make_main_figure(time_slider, main_graph_layout):
 #     figure = dict(data=data, layout=_layout)
 #     return figure
 
-
-# Main
-if __name__ == '__main__':
-    app.server.run(debug=True, threaded=True)

@@ -353,7 +353,3 @@ def make_individual_figure(main_graph_hover, run_selection, param_selection):
     figure = dict(data=data, layout=layout_graph)
     return figure
 
-
-# Main
-if __name__ == '__main__':
-    app.server.run(debug=True, threaded=True)
