@@ -27,7 +27,6 @@ app.css.append_css({'external_url': 'https://cdn.rawgit.com/plotly/dash-app-styl
 package_directory = os.path.dirname(os.path.abspath(__file__))
 data_directory = os.path.join(package_directory, 'data')
 df = pd.read_csv(os.path.join(data_directory, 'glacier_characteristics.csv'))
-ds = xr.open_dataset(os.path.join(data_directory, 'run_output_00.nc'))
 
 area_range = [int(np.floor(df.rgi_area_km2.min())), int(np.ceil(df.rgi_area_km2.max()))]
 
@@ -49,8 +48,6 @@ mapbox_access_token = 'pk.eyJ1IjoiZm1hdXNzaW9uIiwiYSI6ImNqaTY0aGZsbzA0MDMzcHF1NW
 layout = dict(
     autosize=True,
     height=500,
-    # font=dict(color='#CCCCCC'),
-    # titlefont=dict(color='#CCCCCC', size='14'),
     margin=dict(
         l=35,
         r=35,
@@ -58,8 +55,6 @@ layout = dict(
         t=45
     ),
     hovermode="closest",
-    # plot_bgcolor="#191A1A",
-    # paper_bgcolor="#020202",
     legend=dict(font=dict(size=10), orientation='h'),
     title='Map Overview',
     mapbox=dict(
@@ -72,6 +67,21 @@ layout = dict(
         zoom=map_zoom,
     )
 )
+
+traces = []
+trace = dict(
+    type='scattermapbox',
+    lon=df['cenlon'],
+    lat=df['cenlat'],
+    text=df['text'],
+    name=df['rgi_id'],
+    marker=dict(
+        size=6,
+        opacity=1,
+        color='#FF0000'
+    )
+)
+traces.append(trace)
 
 glacier_properties= {
     'length': {
@@ -133,6 +143,7 @@ for file in os.listdir(data_directory):
             }
         )
 
+# Parameter choices for drop-down
 parameter_options = []
 for prop in glacier_properties.keys():
     parameter_options.append(
@@ -148,7 +159,7 @@ app.layout = html.Div(
         html.Div(
             [
                 html.H1(
-                    'OGGM Map demo',
+                    'OGGM climate scenarios demo',
                     className='eight columns',
                 ),
                 html.Img(
@@ -177,19 +188,6 @@ app.layout = html.Div(
         ),
         html.Div(
             [
-                html.P('Filter by area:'),
-                dcc.RangeSlider(
-                    id='area_slider',
-                    min=area_range[0],
-                    max=area_range[1],
-                    value=area_range
-                ),
-            ],
-            style={'margin-top': '20'}
-        ),
-
-        html.Div(
-            [
                 html.Div(
                     [
                         html.H5('Select temperature'),
@@ -210,6 +208,7 @@ app.layout = html.Div(
                             id='param_selection',
                             options=parameter_options,
                             value=parameter_options[0]['value'],
+                            clearable=False
                         ),
                     ],
                     className='four columns',
@@ -223,7 +222,10 @@ app.layout = html.Div(
             [
                 html.Div(
                     [
-                        dcc.Graph(id='main_graph')
+                        dcc.Graph(
+                            id='main_graph',
+                            figure=dict(data=traces, layout=layout)
+                        )
                     ],
                     className='four columns',
                     style={'margin-top': '20'}
@@ -242,51 +244,6 @@ app.layout = html.Div(
     className='ten columns offset-by-one'
 )
 
-
-# Selectors -> glacier text
-@app.callback(Output('glaciers_text', 'children'),
-              [Input('area_slider', 'value')])
-def update_glaciers_text(area_slider):
-
-    dff = df.loc[(df.rgi_area_km2 >= area_slider[0]) &
-                 (df.rgi_area_km2 <= area_slider[1])]
-    return "No of Glaciers: {}".format(dff.shape[0])
-
-
-# Selectors -> main graph
-@app.callback(Output('main_graph', 'figure'),
-              [Input('area_slider', 'value')],
-              [State('main_graph', 'relayoutData')])
-def make_main_figure(area_slider, main_graph_layout):
-
-    dff = df.loc[(df.rgi_area_km2 >= area_slider[0]) &
-                 (df.rgi_area_km2 <= area_slider[1])]
-
-    traces = []
-    trace = dict(
-        type='scattermapbox',
-        lon=dff['cenlon'],
-        lat=dff['cenlat'],
-        text=dff['text'],
-        name=dff['rgi_id'],
-        marker=dict(
-            size=6,
-            opacity=1,
-            color='#FF0000'
-        )
-    )
-    traces.append(trace)
-
-    lon = map_lon
-    lat = map_lat
-    zoom = map_zoom
-
-    layout['mapbox']['center']['lon'] = lon
-    layout['mapbox']['center']['lat'] = lat
-    layout['mapbox']['zoom'] = zoom
-
-    figure = dict(data=traces, layout=layout)
-    return figure
 
 
 # Main graph -> individual graph
