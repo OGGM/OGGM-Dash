@@ -153,9 +153,6 @@ app.layout = html.Div(
         ),
     ],
     className='ten columns offset-by-one',
-    style={
-           "width": "1200px",
-           }
 )
 
 
