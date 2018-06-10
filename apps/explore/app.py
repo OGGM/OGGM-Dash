@@ -81,14 +81,6 @@ app.layout = html.Div(
             ],
             className='row'
         ),
-        # html.Div(
-        #     [
-        #         html.P('Select ranges of data on each plot to '
-        #                 'discover under which climate glaciers '
-        #                 'are located.'),
-        #     ],
-        #     className='row'
-        # ),
         html.Div(
             [
                 html.Div(
@@ -142,11 +134,6 @@ app.layout = html.Div(
         ),
     ],
     className='ten columns offset-by-one',
-
-style={
-       "width": "1400px",
-       }
-
 )
 
 
