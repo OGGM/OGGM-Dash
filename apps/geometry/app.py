@@ -25,6 +25,9 @@ cfg.initialize()
 package_directory = os.path.dirname(os.path.abspath(__file__))
 cfg.PATHS['working_dir'] = os.path.join(package_directory, 'data')
 
+# Multiprocessing is a bad idea in a wsgi app
+cfg.PARAMS['use_multiprocessing'] = False
+
 # Acc
 ds = xr.open_dataset(os.path.join(package_directory, 'data', 'run_output_08.nc'))
 
