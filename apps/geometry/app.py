@@ -51,7 +51,7 @@ map_lat = 46.85
 map_zoom = 10
 
 app = dash.Dash(name='dash_geometry', sharing=True,
-                server=server, url_base_pathname='/dash_geometry')
+                server=server, url_base_pathname='/apps/geometry')
 
 app.css.append_css({'external_url': 'https://cdn.rawgit.com/plotly/dash-app-stylesheets/2d266c578d2a6e8850ebce48fdb52759b2aef506/stylesheet-oil-and-gas.css'})
 
@@ -207,7 +207,3 @@ def make_main_figure(time_slider, main_graph_layout):
     figure = dict(data=traces, layout=layout)
     return figure
 
-
-# Main
-if __name__ == '__main__':
-    app.server.run(debug=True, threaded=True)

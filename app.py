@@ -1,5 +1,6 @@
 from server import server as application
 
-import dash_explore.app
-import dash_geometry.app
+import index
+import apps.explore.app
+import apps.geometry.app
 
