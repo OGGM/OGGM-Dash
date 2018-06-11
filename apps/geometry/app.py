@@ -153,6 +153,16 @@ app.layout = html.Div(
             ],
             className='row'
         ),
+        html.Div(
+            [
+                html.A("Link to our blog post for more information",
+                       href="http://oggm.org/2018/06/11/opendatahack2018/"),
+                html.Br(),
+                html.A("Back to homepage", href="/"),
+            ],
+            className='row',
+            style={'margin-bottom': '20'}
+        ),
     ],
     className='ten columns offset-by-one',
 )
@@ -262,4 +272,3 @@ def make_main_figure(time_slider, main_graph_layout):
 #
 #     figure = dict(data=data, layout=_layout)
 #     return figure
-

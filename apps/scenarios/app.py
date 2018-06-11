@@ -251,6 +251,16 @@ app.layout = html.Div(
             ],
             className='row'
         ),
+        html.Div(
+            [
+                html.A("Link to our blog post for more information",
+                       href="http://oggm.org/2018/06/11/opendatahack2018/"),
+                html.Br(),
+                html.A("Back to homepage", href="/"),
+            ],
+            className='row',
+            style={'margin-bottom': '20'}
+        ),
     ],
     className='ten columns offset-by-one'
 )
