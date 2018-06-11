@@ -14,7 +14,7 @@ app.layout = html.Div([
     html.Div(
         [
             html.H1(
-                ' #OpenDataHack2018: Dashboards',
+                '#OpenDataHack2018: Dashboards',
                 className='eight columns',
             ),
             html.Img(
